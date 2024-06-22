@@ -9,4 +9,4 @@ def test_read_root_deve_retornar_ok_e_ola_mundo():
     client = TestClient(app)  # Arrange - Organização do teste
     response = client.get('/')  # Act - Ação do teste
     assert response.status_code == HTTPStatus.OK  # assert
-    assert response.json() == {'message': 'Olá, Mund'}
+    assert response.json() == {'message': 'Olá, Mundo'}
