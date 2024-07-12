@@ -3,7 +3,6 @@
 
 database.db
 alembic.ini
-migrations/
 
 ### Python ###
 # Byte-compiled / optimized / DLL files
