@@ -59,7 +59,7 @@ def test_read_users(client):
     assert response.json() == {'users': []}
 
 
-def test_read_users_with_users(client, user):
+def test_read_users_with_user(client, user):
     user_schema = UserPublic.model_validate(user).model_dump()
     response = client.get('/users/')
     assert response.json() == {'users': [user_schema]}
@@ -115,3 +115,33 @@ def test_delete_user_not_found(client):
     )
     assert response.status_code == HTTPStatus.NOT_FOUND
     assert response.json() == {'detail': 'User not found'}
+
+
+# Exercício 1 - aula 05
+def test_create_user_username_exists(client, user):
+    response = client.post(
+        '/users/',
+        json={
+            'username': 'Teste',
+            'email': 'teste2@test.com',
+            'password': 'testtest2',
+        },
+    )
+
+    assert response.status_code == HTTPStatus.BAD_REQUEST
+    assert response.json() == {'detail': 'Username already exists'}
+
+
+# Exercício 2 - aula 05
+def test_create_user_email_exists(client, user):
+    response = client.post(
+        '/users/',
+        json={
+            'username': 'Teste2',
+            'email': 'teste@test.com',
+            'password': 'testtest2',
+        },
+    )
+
+    assert response.status_code == HTTPStatus.BAD_REQUEST
+    assert response.json() == {'detail': 'Email already exists'}
